@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+Hello User {{id}}
+
+<form method="POST">
+	{{ form.hidden_tag() }}
+	{{ form.show_interest }}
+</form>
+
+{% endblock %}

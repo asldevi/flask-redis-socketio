@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}Flask Redis Socket-IO Demo{% endblock title %}</title>
+    </head>
+    <body>
+
+        <div id="main">
+        {% with msgs = get_flashed_messages() %}
+            {% if msgs %}
+                <p style='color:green'>{{ msgs[0] }} </p>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}
+
+        {% endblock content %}
+        </div>
+
+        {% block form %}
+        {% endblock form %}
+
+        <script src="/static/js/jquery.min.js"></script>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+        <script src="/static/js/socketio/socket.io.min.js"></script>
+
+        {% block extra_js %}
+        {% endblock extra_js %}
+
+    </body>
+</html>

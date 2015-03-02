@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block extra_js %}
+<script type="text/javascript">
+    window.user_id = "{{ id }}";
+</script>
+<script src="/static/js/msgs.js"></script>
+{% endblock %}
+
+{% block content %}
+	{% for msg in msgs %}
+	<div>
+		<b>{{msg.subject}}:</b>
+		<p>{{msg.content}}</p>
+		<b>{{msg.sent_at}}</b>
+	</div>
+	{% endfor %}
+{% endblock %}
+
