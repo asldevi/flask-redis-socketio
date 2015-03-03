@@ -8,12 +8,11 @@
 {% endblock %}
 
 {% block content %}
-	{% for msg in msgs %}
-	<div>
-		<b>{{msg.subject}}:</b>
-		<p>{{msg.content}}</p>
-		<b>{{msg.sent_at}}</b>
-	</div>
-	{% endfor %}
+<div id='msgs'>
+    {% for msg in msgs %}
+        {{msg.subject}}: &nbsp;&nbsp;&nbsp;&nbsp; {{msg.content}} &nbsp;&nbsp;&nbsp;&nbsp; {{msg.sent_at}}
+        <br/>
+    {% endfor %}
+</div>
 {% endblock %}
 
