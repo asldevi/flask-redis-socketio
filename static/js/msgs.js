@@ -7,8 +7,6 @@ $(function() {
     });
 
     socket.on('newmsg', function (msg) {
-    	alert('in newmsg');
-    	window.console.log('in newmsg');
     	window.console.log(msg);
     	$('#msgs').prepend($('<div>').append($('<p>').text(msg.subject)));
     });

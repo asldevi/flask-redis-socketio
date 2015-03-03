@@ -1,5 +1,7 @@
-import redis
+import json
 from datetime import datetime
+
+import redis
 
 from flask import Flask, Response, render_template, url_for, flash, request
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -10,6 +12,7 @@ from flask.ext.wtf import Form
 from socketio import socketio_manage
 from socketio.namespace import BaseNamespace
 from socketio.mixins import RoomsMixin
+
 
 app = Flask(__name__)
 app.debug = True
@@ -33,6 +36,9 @@ class Message(db.Model):
     def __repr__(self):
         return 'To: id<{}> \n Sub: {}'.format(self.to, self.subject)
 
+    def dict(self):
+        return dict(id=self.id, subject=self.subject, content=self.content, to=self.to, unread=self.unread, sent_at=self.sent_at.isoformat())
+
     def save(self):
         db.session.add(self)
         db.session.commit()
@@ -52,7 +58,7 @@ def users(id):
     if form.validate_on_submit():
         msg = Message(to=id, subject='Interest shown', content='Somebody has shown interest to user {}'.format(id))
         msg.save()
-        r.publish('msg:{}'.format(id), msg)
+        r.publish('msg:{}'.format(id), json.dumps(msg.dict()))
         flash('Thanks for showing interest.')
     return render_template('user.html', id=id, form=form)
 
@@ -81,7 +87,7 @@ class MessagesNamespace(BaseNamespace):
 
     def listener(self):
         for item in self.pubsub.listen():
-            self.emit('newmsg', item['data'])
+            self.emit('newmsg', json.loads(str(item['data'])))
 
 
 @app.route('/socket.io/<path:remaining>')
