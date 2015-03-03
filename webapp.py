@@ -44,10 +44,7 @@ class ShowInterestForm(Form):
 
 @app.route('/')
 def user_list():
-    print url_for('users', id=100)
-    print "<a href='{}'>Talent {}<a>".format(url_for('users', id=55), 55)
-    s = '</br>'.join("<a href='{}'>Talent {}<a>".format(url_for('users', id=id), id) for id in range(10))
-    return Response(s)
+    return render_template('users_list.html')
 
 @app.route('/users/<int:id>', methods=['GET', 'POST'])
 def users(id):

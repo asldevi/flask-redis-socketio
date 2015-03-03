@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{% for id in range(10) %}
+		<a href='{{url_for('users', id=id)}}'>User {{id}} </a> &nbsp; &nbsp; &nbsp;
+		<a href='{{url_for('inbox', id=id)}}'>Inbox</a>
+		<br />
+	{% endfor %}
+{% endblock %}
